@@ -9,7 +9,6 @@ Purpose: Testing/Learning Python - Rock Paper Scissors
 # imports
 import random
 
-
 # Global Variables
 
 
