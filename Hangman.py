@@ -63,12 +63,16 @@ def read_file(file):
         return list
 
 # Display the result of the game
-def endGame(result):
+def endGame(result,text):
     img_width = 500
     img_height = 300
+    ans = 'The answer is: ' + text
     img = pygame.image.load("you_" + result + ".png").convert() #load and convert image for pygame
     img = pygame.transform.scale(img,(img_width,img_height)) #change size of image
-    screen.blit(img,((SCREEN_WIDTH - img_width)/2,(SCREEN_HEIGHT - img_height)/2)) #display image
+    x = (SCREEN_WIDTH - img_width)/2
+    y = (SCREEN_HEIGHT - img_height)/2
+    screen.blit(img,(x,y)) #display image
+    drawText(ans,font,GREEN,x + 100,y + 200) #put answer on screen
     pygame.display.flip() #update display
     time.sleep(3) #delay for 3 seconds
     
@@ -87,7 +91,7 @@ def main():
     lettersRemainingList = ALPH.copy()
     
     #get word
-    choices = read_file('fruit.txt')
+    choices = read_file('food.txt')
     num_of_choices = len(choices)
     computerChoiceIndex = random.randint(0,num_of_choices-1) #get random index to choose
     compChoice = choices[computerChoiceIndex] #get computers choiced based off index
@@ -146,6 +150,7 @@ def main():
                 #make sure a letter is pressed 
                 elif key in ALPH:
                     if key not in lettersIncorrect:
+                           
                            lettersIncorrect.append(key) #add letters to incorrect list to track
                     
                 if key in lettersRemainingList:
@@ -217,13 +222,12 @@ def main():
         #check if game is over and end it
         if len(lettersList) == len(lettersCorrect):
             status = 'win'
-            print("you win")
-            endGame(status)
+            endGame(status,compChoice)
             run = False
             
         elif len(lettersIncorrect) == 6:
             status = 'lose'
-            endGame(status)
+            endGame(status,compChoice)
             run = False
         
     pygame.quit()
