@@ -92,9 +92,7 @@ def main():
     
     #get word
     choices = read_file('food.txt')
-    num_of_choices = len(choices)
-    computerChoiceIndex = random.randint(0,num_of_choices-1) #get random index to choose
-    compChoice = choices[computerChoiceIndex] #get computers choiced based off index
+    compChoice = random.choice(choices) #get computers choiced based off index
     lettersList = [*compChoice] #make string a list of letters
     
     #setup underlines list
@@ -149,8 +147,7 @@ def main():
                             
                 #make sure a letter is pressed 
                 elif key in ALPH:
-                    if key not in lettersIncorrect:
-                           
+                    if key not in lettersIncorrect: 
                            lettersIncorrect.append(key) #add letters to incorrect list to track
                     
                 if key in lettersRemainingList:
@@ -166,7 +163,28 @@ def main():
                     drawText(letter,font,font_color,offset,525) 
                     pygame.display.update() 
                     offset += 43
-                    
+        """          
+        head_radius = 30
+        body_len = 150
+        arm_offset = 50
+        body_parts = [(noose.centerx, noose.bottom + head_radius), # Head
+                      (noose.centerx, noose.bottom + 150), # Body
+                      (noose.centerx + arm_offset, noose.bottom + arm_offset), # Right arm
+                      (noose.centerx - arm_offset, noose.bottom + arm_offset), # Left arm
+                      (noose.centerx + arm_offset, noose.bottom + 200), # Right leg
+                      (noose.centerx - arm_offset, noose.bottom + 200)] # Left leg
+        
+        for i in range(len(lettersIncorrect)):
+            if i == 1:
+                drawCirc(screen, RED, body_parts[i])
+            elif i > 1:
+                pygame.draw.line(screen, RED, (noose.centerx, noose.bottom), body_parts[i], 5)
+            elif i >= len(body_parts):
+                break
+        """   
+        
+        
+                   
         #draw head
         if len(lettersIncorrect) == 1:
             radius = 30
@@ -215,9 +233,9 @@ def main():
             leg_start_pos = (x, y)
             leg_end_pos = (x - legLen, y + legLen)
             drawLine(screen, RED, leg_start_pos,leg_end_pos,line_width)
-            
+        
         #update the display
-        pygame.display.update() 
+        pygame.display.flip() 
         
         #check if game is over and end it
         if len(lettersList) == len(lettersCorrect):
