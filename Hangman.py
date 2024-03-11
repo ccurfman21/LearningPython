@@ -145,7 +145,8 @@ def main():
                             
                 #make sure a letter is pressed 
                 elif key in ALPH:
-                    lettersIncorrect.append(key) #add letters to incorrect list to track
+                    if key not in lettersIncorrect:
+                           lettersIncorrect.append(key) #add letters to incorrect list to track
                     
                 if key in lettersRemainingList:
                     lettersRemainingList.remove(key) #remove letters that can be guessed
